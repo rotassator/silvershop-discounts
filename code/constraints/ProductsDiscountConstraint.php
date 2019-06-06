@@ -37,13 +37,14 @@ class ProductsDiscountConstraint extends ItemDiscountConstraint {
             $products = $discount->Products();
 
             if(!$products->exists()) {
+                Versioned::reading_stage($curr);
                 return true;
             }
 
             $constraintproductids = $products->map('ID','ID')->toArray();
             Versioned::reading_stage($curr);
         } else {
-          $constraintproductids = $products->map('ID','ID')->toArray();
+            $constraintproductids = $products->map('ID','ID')->toArray();
         }
 
         // uses 'DiscountedProductID' so that subclasses of projects (say a custom nested set of products) can define the
